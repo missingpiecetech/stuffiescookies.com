@@ -1,224 +1,372 @@
 <script>
-	import CookieCard from '$lib/components/CookieCard.svelte';
+  import CookieCard from "$lib/components/CookieCard.svelte";
 
-	const flavors = [
-		{
-			name: 'Classic Chocolate Chip',
-			description: 'Our signature recipe with rich chocolate chips and a perfect chewy texture. A timeless favorite made with less sugar for a more balanced taste.',
-			image: 'https://via.placeholder.com/400x300?text=Chocolate+Chip'
-		},
-		{
-			name: 'Double Chocolate',
-			description: 'Rich chocolate cookie loaded with dark chocolate chunks. Perfect for chocolate lovers who want indulgence without excessive sweetness.',
-			image: 'https://via.placeholder.com/400x300?text=Double+Chocolate'
-		},
-		{
-			name: 'Oatmeal Raisin',
-			description: 'Hearty oats combined with plump raisins and a hint of cinnamon. A wholesome treat that satisfies without being overly sweet.',
-			image: 'https://via.placeholder.com/400x300?text=Oatmeal+Raisin'
-		},
-		{
-			name: 'Peanut Butter',
-			description: 'Creamy peanut butter cookies with a soft, melt-in-your-mouth texture. Made with real peanut butter and reduced sugar for natural flavor.',
-			image: 'https://via.placeholder.com/400x300?text=Peanut+Butter'
-		},
-		{
-			name: 'White Chocolate Macadamia',
-			description: 'Premium macadamia nuts paired with white chocolate chips. An elegant cookie with a perfect balance of flavors.',
-			image: 'https://via.placeholder.com/400x300?text=White+Chocolate'
-		},
-		{
-			name: 'Snickerdoodle',
-			description: 'Cinnamon sugar cookies with a soft, chewy center. Classic comfort with less sugar and more spice for enhanced flavor.',
-			image: 'https://via.placeholder.com/400x300?text=Snickerdoodle'
-		},
-		{
-			name: 'Triple Berry',
-			description: 'Bursting with strawberries, blueberries, and raspberries. A fruity delight that lets natural sweetness shine through.',
-			image: 'https://via.placeholder.com/400x300?text=Triple+Berry'
-		},
-		{
-			name: 'Salted Caramel',
-			description: 'Gooey caramel pieces with a touch of sea salt. A sophisticated sweet and salty combination with balanced sugar.',
-			image: 'https://via.placeholder.com/400x300?text=Salted+Caramel'
-		},
-		{
-			name: 'Lemon Zest',
-			description: 'Bright and refreshing lemon cookies with a subtle tang. Light and airy with just the right amount of sweetness.',
-			image: 'https://via.placeholder.com/400x300?text=Lemon+Zest'
-		}
-	];
+  const classicFlavors = [
+    {
+      name: "Chocolate Chip",
+      description:
+        "Our signature recipe with rich chocolate chips and a perfect chewy texture. A timeless favorite made with less sugar for a more balanced taste.",
+      image: "/chocolate_chip.jpeg",
+      type: "classic",
+    },
+    {
+      name: "Red Velvet Cake",
+      description:
+        "Rich, velvety red cookies with a hint of cocoa and cream cheese flavor. A sophisticated twist on the classic cake in cookie form.",
+      image: "/red_velvet.jpeg",
+      type: "classic",
+    },
+    {
+      name: "Cookies and Cream",
+      description: "Chocolate cookie base loaded with crushed cookie pieces and white chocolate chips. A delightful crunch in every bite.",
+      image: "/cookies_and_cream.jpeg",
+      type: "classic",
+    },
+    {
+      name: "Peanut Butter",
+      description:
+        "Creamy peanut butter cookies with a soft, melt-in-your-mouth texture. Made with real peanut butter and reduced sugar for natural flavor.",
+      image: "https://via.placeholder.com/400x300?text=Peanut+Butter",
+      type: "classic",
+    },
+    {
+      name: "Birthday Cake",
+      description: "Vanilla-based cookies with colorful sprinkles and a festive birthday cake flavor. Celebration in every bite!",
+      image: "https://via.placeholder.com/400x300?text=Birthday+Cake",
+      type: "classic",
+    },
+  ];
+
+  const rotatingFlavors = [
+    {
+      name: "Ube",
+      description:
+        "Filipino purple yam cookies with a unique, subtly sweet flavor and beautiful purple color. A trendy and delicious Asian-inspired treat.",
+      image: "https://via.placeholder.com/400x300?text=Ube",
+      type: "rotating",
+    },
+    {
+      name: "Matcha",
+      description:
+        "Premium Japanese green tea powder creates these earthy, slightly bitter cookies that balance perfectly with our reduced sugar recipe.",
+      image: "/matcha.jpeg",
+      type: "rotating",
+    },
+  ];
+
+  const allFlavors = [...classicFlavors, ...rotatingFlavors];
 </script>
 
 <svelte:head>
-	<title>Cookie Flavors - Stuffie's Cookies</title>
-	<meta name="description" content="Browse our delicious selection of cookie flavors. From classic chocolate chip to unique combinations, all made big, chewy, and with less sugar." />
-	<meta name="keywords" content="cookie flavors, chocolate chip, oatmeal raisin, peanut butter, cookies menu" />
+  <title>Cookie Flavors - Stuffie's Cookies</title>
+  <meta
+    name="description"
+    content="Browse our delicious selection of cookie flavors. From classic chocolate chip to unique combinations, all made big, chewy, and with less sugar."
+  />
+  <meta name="keywords" content="cookie flavors, chocolate chip, oatmeal raisin, peanut butter, cookies menu" />
 </svelte:head>
 
 <div class="flavors-page">
-	<div class="hero-small">
-		<div class="container">
-			<h1><i class="fas fa-cookie"></i> Our Cookie Flavors</h1>
-			<p>Big, chewy cookies with less sugar - discover your new favorite!</p>
-		</div>
-	</div>
+  <div class="hero-small">
+    <div class="container">
+      <h1>Our Cookie Flavors</h1>
+      <p>Big, chewy cookies with less sugar - discover your new favorite!</p>
+    </div>
+  </div>
 
-	<section class="flavors-section">
-		<div class="container">
-			<div class="flavors-grid">
-				{#each flavors as flavor}
-					<CookieCard 
-						name={flavor.name} 
-						description={flavor.description}
-						image={flavor.image}
-					/>
-				{/each}
-			</div>
-		</div>
-	</section>
+  <section class="flavors-section">
+    <div class="container">
+      <div class="flavor-category">
+        <h2>Classic Flavors</h2>
+        <p class="category-description">Always available - our signature recipes perfected over time</p>
+        <div class="flavors-grid">
+          {#each classicFlavors as flavor}
+            <CookieCard name={flavor.name} description={flavor.description} image={flavor.image} />
+          {/each}
+        </div>
+      </div>
 
-	<section class="order-info">
-		<div class="container">
-			<div class="info-box">
-				<h2><i class="fas fa-info-circle"></i> Ordering Information</h2>
-				<div class="info-grid">
-					<div class="info-item">
-						<i class="fas fa-box"></i>
-						<h3>Minimum Order</h3>
-						<p>6 cookies (mix and match flavors)</p>
-					</div>
-					<div class="info-item">
-						<i class="fas fa-clock"></i>
-						<h3>Delivery Time</h3>
-						<p>Same day for orders before 2pm</p>
-					</div>
-					<div class="info-item">
-						<i class="fas fa-dollar-sign"></i>
-						<h3>Pricing</h3>
-						<p>$3.50 per cookie, bulk discounts available</p>
-					</div>
-				</div>
-				<div class="contact-cta">
-					<p>Ready to order? Contact us at <strong>(555) 123-4567</strong> or <strong>hello@stuffiescookies.com</strong></p>
-				</div>
-			</div>
-		</div>
-	</section>
+      <div class="flavor-category">
+        <h2>Rotating Flavors</h2>
+        <p class="category-description">Limited time offerings - available this month only!</p>
+        <div class="flavors-grid">
+          {#each rotatingFlavors as flavor}
+            <CookieCard name={flavor.name} description={flavor.description} image={flavor.image} />
+          {/each}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-info">
+    <div class="container">
+      <div class="info-box">
+        <h2>Ordering Information</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">
+              <i class="fa-solid fa-cookie-bite"></i>
+            </span>
+            <h3>Minimum Order</h3>
+            <p>12 cookies (mix and match flavors)</p>
+          </div>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">
+              <i class="fa-solid fa-clock"></i>
+            </span>
+            <h3>Pickup Time</h3>
+            <p>Coordinated upon order. Please order at least 72-hours in advance.</p>
+          </div>
+          <div class="info-item">
+            <span class="info-icon" aria-hidden="true">
+              <i class="fa-solid fa-money-bill-wave"></i>
+            </span>
+            <h3>Pricing</h3>
+            <p>$30/bakers dozen (13), single flavor</p>
+            <p>$39/dozen, mix and match up to 3 flavors</p>
+          </div>
+        </div>
+        <div class="contact-cta">
+          <p>
+            Ready to order? Connect with us on Instagram
+            <strong><a href="https://www.instagram.com/blubeaar2/" target="_blank" rel="noopener noreferrer">@blubeaar2</a></strong>
+            to place your order for local pickup!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <style>
-	.flavors-page {
-		background: var(--light-bg);
-	}
+  .flavors-page {
+    background: var(--light-bg);
+  }
 
-	.hero-small {
-		background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-		color: var(--white);
-		padding: 3rem 0;
-		text-align: center;
-	}
+  .hero-small {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 4rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-	.hero-small h1 {
-		color: var(--white);
-		font-size: 2.5rem;
-		margin-bottom: 0.5rem;
-	}
+  .hero-small::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+    animation: float 20s infinite linear;
+  }
 
-	.hero-small p {
-		font-size: 1.2rem;
-		opacity: 0.95;
-		margin-bottom: 0;
-	}
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate(-30px, -30px) rotate(360deg);
+    }
+  }
 
-	.flavors-section {
-		padding: 4rem 0;
-	}
+  .hero-small h1 {
+    color: var(--white);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
 
-	.flavors-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 2rem;
-	}
+  .hero-small p {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+  }
 
-	.order-info {
-		padding: 3rem 0 4rem;
-	}
+  .flavors-section {
+    padding: 6rem 0;
+  }
 
-	.info-box {
-		background: var(--white);
-		border-radius: 10px;
-		padding: 2rem;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	}
+  .flavor-category {
+    margin-bottom: 6rem;
+  }
 
-	.info-box h2 {
-		text-align: center;
-		margin-bottom: 2rem;
-		font-size: 2rem;
-	}
+  .flavor-category:last-child {
+    margin-bottom: 0;
+  }
 
-	.info-box h2 i {
-		margin-right: 0.5rem;
-		color: var(--secondary-color);
-	}
+  .flavor-category h2 {
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+  }
 
-	.info-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 2rem;
-		margin-bottom: 2rem;
-	}
+  .category-description {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--gray);
+    margin-bottom: 3rem;
+    font-style: italic;
+    font-weight: 300;
+  }
 
-	.info-item {
-		text-align: center;
-		padding: 1.5rem;
-		background: var(--light-bg);
-		border-radius: 8px;
-	}
+  .flavors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 
-	.info-item i {
-		font-size: 2.5rem;
-		color: var(--secondary-color);
-		margin-bottom: 1rem;
-	}
+  .order-info {
+    padding: 6rem 0;
+    background: var(--white);
+  }
 
-	.info-item h3 {
-		margin-bottom: 0.5rem;
-		font-size: 1.2rem;
-	}
+  .info-box {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(155, 179, 255, 0.15);
+    border: 1px solid rgba(155, 179, 255, 0.2);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 
-	.info-item p {
-		color: var(--gray);
-		margin-bottom: 0;
-	}
+  .info-box h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: var(--primary-color);
+    font-weight: 700;
+  }
 
-	.contact-cta {
-		text-align: center;
-		padding-top: 2rem;
-		border-top: 2px solid var(--light-bg);
-	}
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
 
-	.contact-cta p {
-		font-size: 1.1rem;
-		margin-bottom: 0;
-	}
+  .info-item {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(155, 179, 255, 0.1);
+    border: 1px solid rgba(155, 179, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
 
-	.contact-cta strong {
-		color: var(--secondary-color);
-	}
+  .info-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--secondary-color);
+  }
 
-	@media (max-width: 768px) {
-		.hero-small h1 {
-			font-size: 2rem;
-		}
+  .info-icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+  }
 
-		.flavors-grid {
-			grid-template-columns: 1fr;
-		}
+  .info-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(155, 179, 255, 0.2);
+  }
 
-		.info-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+  .info-item h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+  }
+
+  .info-item p {
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .info-item p:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-cta {
+    text-align: center;
+    padding: 2.5rem 2rem 0;
+    border-top: 2px solid rgba(155, 179, 255, 0.2);
+  }
+
+  .contact-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    color: var(--gray);
+  }
+
+  .contact-cta strong {
+    color: var(--secondary-color);
+  }
+
+  .contact-cta a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .contact-cta a:hover {
+    color: var(--primary-color);
+    background: rgba(155, 179, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .hero-small {
+      padding: 3rem 0;
+    }
+
+    .flavors-section {
+      padding: 4rem 0;
+    }
+
+    .flavor-category {
+      margin-bottom: 4rem;
+    }
+
+    .flavors-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .info-box {
+      padding: 2rem;
+      border-radius: 1.5rem;
+    }
+
+    .order-info {
+      padding: 4rem 0;
+    }
+  }
 </style>

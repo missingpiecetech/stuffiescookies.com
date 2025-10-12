@@ -1,69 +1,86 @@
 :root {
-	--primary-color: #8b4513;
-	--secondary-color: #d2691e;
-	--accent-color: #f4a460;
-	--text-color: #333;
-	--light-bg: #fdf6ec;
-	--white: #ffffff;
-	--gray: #666;
-	--light-gray: #f5f5f5;
+  --primary-color: #9bb3ff;
+  --secondary-color: #ffb366;
+  --accent-color: #b8c8ff;
+  --text-color: #2d3748;
+  --light-bg: #f8f9ff;
+  --white: #ffffff;
+  --gray: #5a6c7d;
+  --light-gray: #f5f5f5;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	color: var(--text-color);
-	line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	margin-bottom: 1rem;
-	color: var(--primary-color);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-	font-size: 2.5rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.2;
 }
 
 h2 {
-	font-size: 2rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.3;
 }
 
 h3 {
-	font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.4;
 }
 
 p {
-	margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  color: var(--gray);
 }
 
 a {
-	color: var(--secondary-color);
-	text-decoration: none;
-	transition: color 0.3s;
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 a:hover {
-	color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 button {
-	cursor: pointer;
-	font-family: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 img {
-	max-width: 100%;
-	height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .container {
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }

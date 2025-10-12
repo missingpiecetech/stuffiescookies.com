@@ -1,75 +1,113 @@
 <footer>
-	<div class="container">
-		<div class="footer-content">
-			<div class="footer-section">
-				<h3><i class="fas fa-cookie-bite"></i> Stuffie's Cookies</h3>
-				<p>Big, chewy cookies with less sugar, baked fresh and delivered to your door.</p>
-			</div>
-			<div class="footer-section">
-				<h4>Contact Us</h4>
-				<p><i class="fas fa-phone"></i> (555) 123-4567</p>
-				<p><i class="fas fa-envelope"></i> hello@stuffiescookies.com</p>
-				<p><i class="fas fa-map-marker-alt"></i> Your City, State</p>
-			</div>
-			<div class="footer-section">
-				<h4>Hours</h4>
-				<p><i class="fas fa-clock"></i> Monday - Friday: 9am - 6pm</p>
-				<p><i class="fas fa-clock"></i> Saturday: 10am - 4pm</p>
-				<p><i class="fas fa-clock"></i> Sunday: Closed</p>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<p>&copy; {new Date().getFullYear()} Stuffie's Cookies. All rights reserved.</p>
-		</div>
-	</div>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Stuffie's Cookies</h3>
+        <p>Big, chewy cookies with less sugar, baked fresh and available for local pickup.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Order & Connect</h4>
+        <p>
+          <a href="https://www.instagram.com/blubeaar2/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i>
+            @blubeaar2
+          </a>
+        </p>
+        <p>Local pickup available</p>
+      </div>
+      <div class="footer-section">
+        <h4>Hours</h4>
+        <p>Monday - Friday: 9am - 6pm</p>
+        <p>Saturday: 10am - 4pm</p>
+        <p>Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} Stuffie's Cookies. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
 <style>
-	footer {
-		background: var(--primary-color);
-		color: var(--white);
-		padding: 3rem 0 1rem;
-		margin-top: 4rem;
-	}
+  footer {
+    background: var(--primary-color);
+    padding: 4rem 0 2rem;
+    margin-top: 0;
+    position: relative;
+    color: var(--white);
+  }
+  .footer-content p,
+  .footer-content h3 {
+    color: var(--white);
+  }
 
-	.footer-content {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 2rem;
-		margin-bottom: 2rem;
-	}
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--secondary-color);
+  }
 
-	.footer-section h3,
-	.footer-section h4 {
-		color: var(--white);
-		margin-bottom: 1rem;
-	}
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
 
-	.footer-section p {
-		margin-bottom: 0.5rem;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
+  .footer-section h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 
-	.footer-section i {
-		width: 20px;
-	}
+  .footer-section h4 {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    opacity: 0.9;
+  }
 
-	.footer-bottom {
-		text-align: center;
-		padding-top: 2rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.2);
-	}
+  .footer-section p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
 
-	@media (max-width: 768px) {
-		.footer-content {
-			grid-template-columns: 1fr;
-			text-align: center;
-		}
+  .footer-section a {
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
 
-		.footer-section p {
-			justify-content: center;
-		}
-	}
+  .footer-section a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-1px);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    footer {
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 2rem;
+    }
+  }
 </style>
