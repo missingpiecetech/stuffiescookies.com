@@ -1,15 +1,16 @@
 <script>
+  const PLACEHOLDER_TEXT = 'STOCK_IMAGE_PLACEHOLDER';
   let { src, alt = "Stock Image", className = "" } = $props();
   
   // Check if this is a placeholder
-  const isPlaceholder = !src || src === 'STOCK_IMAGE_PLACEHOLDER' || src.includes('STOCK_IMAGE_PLACEHOLDER');
+  const isPlaceholder = !src || src === PLACEHOLDER_TEXT || src.includes(PLACEHOLDER_TEXT);
 </script>
 
 {#if isPlaceholder}
   <div class="stock-placeholder {className}">
     <div class="placeholder-content">
       <i class="fas fa-image"></i>
-      <span>STOCK_IMAGE_PLACEHOLDER</span>
+      <span>{PLACEHOLDER_TEXT}</span>
     </div>
   </div>
 {:else}

@@ -18,7 +18,7 @@
     <div class="hero-content">
       <div class="hero-text">
         <div class="teddy-accent">
-          <i class="fas fa-dog"></i>
+          <i class="fas fa-heart"></i>
         </div>
         <h1>Big, Chewy Cookies with Less Sugar</h1>
         <p class="tagline">Deliciously satisfying treats, baked fresh and available for local pickup</p>
@@ -79,7 +79,7 @@
       <div class="about-text">
         <h2>
           About Stuffie's Cookies
-          <i class="fas fa-dog teddy-inline"></i>
+          <i class="fas fa-heart teddy-inline"></i>
         </h2>
         <p>
           At Stuffie's Cookies, we believe that cookies should be a guilt-free pleasure. That's why we've perfected our recipe to create
