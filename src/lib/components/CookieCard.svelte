@@ -25,17 +25,18 @@
 <style>
   .cookie-card {
     background: var(--white);
-    border-radius: 4px;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(212, 165, 165, 0.15);
     transition:
       transform 0.3s,
       box-shadow 0.3s;
+    border: 2px solid var(--accent-color);
   }
 
   .cookie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(212, 165, 165, 0.25);
   }
 
   .cookie-image {
@@ -46,6 +47,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+  }
+
+  .cookie-image::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-color);
   }
 
   .cookie-image img {
@@ -56,7 +68,7 @@
   }
 
   .cookie-card:hover .cookie-image img {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 
   .placeholder-content {
@@ -71,28 +83,30 @@
   .cookie-icon {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    color: var(--secondary-color);
-    opacity: 0.6;
+    color: var(--primary-color);
+    opacity: 0.7;
   }
 
   .placeholder-content p {
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0;
-    color: var(--gray);
+    color: var(--secondary-color);
   }
 
   .cookie-info {
-    padding: 1.5rem;
+    padding: 1.8rem;
   }
 
   .cookie-info h3 {
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--brown-text);
+    font-size: 1.4rem;
   }
 
   .cookie-info p {
     color: var(--gray);
     margin-bottom: 0;
+    line-height: 1.6;
   }
 </style>
