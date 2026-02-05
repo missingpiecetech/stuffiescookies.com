@@ -141,15 +141,17 @@
 <style>
   .flavors-page {
     background: var(--light-bg);
+    background-image: url("/plaid_bg.png");
+    background-repeat: repeat;
   }
 
   .hero-small {
     background: var(--primary-color);
-    color: var(--white);
     padding: 4rem 0;
     text-align: center;
     position: relative;
     overflow: hidden;
+    color: var(--brown-text);
   }
 
   .hero-small::before {
@@ -161,7 +163,7 @@
     height: 200%;
     background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 30px 30px;
-    opacity: 0.3;
+    opacity: 0.4;
     animation: float 20s infinite linear;
   }
 
@@ -175,7 +177,6 @@
   }
 
   .hero-small h1 {
-    color: var(--white);
     font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 1rem;
     font-weight: 700;
@@ -207,17 +208,17 @@
     text-align: center;
     font-size: clamp(2rem, 4vw, 2.8rem);
     margin-bottom: 1rem;
-    color: var(--primary-color);
     font-weight: 700;
+    color: var(--white);
   }
 
   .category-description {
     text-align: center;
     font-size: 1.2rem;
-    color: var(--gray);
     margin-bottom: 3rem;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 500;
+    color: var(--white);
   }
 
   .flavors-grid {
@@ -235,10 +236,10 @@
 
   .info-box {
     background: var(--white);
-    border-radius: 1rem;
+    border-radius: 2rem;
     padding: 3rem;
-    box-shadow: 0 20px 60px rgba(155, 179, 255, 0.15);
-    border: 1px solid rgba(155, 179, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(212, 165, 165, 0.2);
+    border: 2px solid var(--accent-color);
     max-width: 1000px;
     margin: 0 auto;
   }
@@ -247,7 +248,7 @@
     text-align: center;
     margin-bottom: 3rem;
     font-size: clamp(2rem, 4vw, 2.5rem);
-    color: var(--primary-color);
+    color: var(--brown-text);
     font-weight: 700;
   }
 
@@ -264,8 +265,8 @@
     border-radius: 1.5rem;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(155, 179, 255, 0.1);
-    border: 1px solid rgba(155, 179, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(212, 165, 165, 0.15);
+    border: 2px solid var(--accent-color);
     position: relative;
     overflow: hidden;
   }
@@ -277,23 +278,24 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--secondary-color);
+    background: var(--primary-color);
   }
 
   .info-icon {
     font-size: 3rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
   }
 
   .info-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(155, 179, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(212, 165, 165, 0.25);
   }
 
   .info-item h3 {
     margin-bottom: 1rem;
     font-size: 1.3rem;
-    color: var(--secondary-color);
+    color: var(--brown-text);
     font-weight: 600;
   }
 
@@ -311,7 +313,7 @@
   .contact-cta {
     text-align: center;
     padding: 2.5rem 2rem 0;
-    border-top: 2px solid rgba(155, 179, 255, 0.2);
+    border-top: 2px solid var(--accent-color);
   }
 
   .contact-cta p {
@@ -334,7 +336,7 @@
 
   .contact-cta a:hover {
     color: var(--primary-color);
-    background: rgba(155, 179, 255, 0.1);
+    background: var(--accent-color);
   }
 
   @media (max-width: 768px) {

@@ -30,7 +30,7 @@
 
 <style>
   footer {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     padding: 4rem 0 2rem;
     margin-top: 0;
     position: relative;
@@ -48,7 +48,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--secondary-color);
+    background: var(--primary-color);
   }
 
   .footer-content {
@@ -69,7 +69,7 @@
     margin-bottom: 1.5rem;
     font-size: 1.2rem;
     font-weight: 600;
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   .footer-section p {
@@ -88,7 +88,8 @@
   }
 
   .footer-section a:hover {
-    color: var(--secondary-color);
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
   }
 

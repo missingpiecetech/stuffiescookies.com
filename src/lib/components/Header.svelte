@@ -23,13 +23,14 @@
 
 <style>
   header {
-    background: var(--primary-color);
-    color: var(--white);
-    padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    color: var(--secondary-color);
+    padding: 1.2rem 0;
+    box-shadow: 0 2px 15px rgba(139, 111, 92, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 3px solid var(--accent-color);
   }
 
   nav {
@@ -44,10 +45,12 @@
     font-size: 1.5rem;
     font-weight: bold;
     gap: 0.5rem;
+    color: var(--brown-text);
   }
 
   .logo i {
     font-size: 1.8rem;
+    color: var(--secondary-color);
   }
 
   .nav-links {
@@ -57,19 +60,23 @@
   }
 
   .nav-links a {
-    color: var(--white);
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background 0.3s;
+    color: var(--secondary-color);
+    font-weight: 600;
+    padding: 0.6rem 1.3rem;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    text-decoration: none;
   }
 
   .nav-links a:hover,
   .nav-links a.active {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--accent-color);
+    color: var(--brown-text);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
   }
 
   @media (max-width: 768px) {
