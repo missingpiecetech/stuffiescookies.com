@@ -31,7 +31,6 @@
     transition:
       transform 0.3s,
       box-shadow 0.3s;
-    border: 2px solid var(--accent-color);
   }
 
   .cookie-card:hover {
@@ -48,16 +47,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-  }
-
-  .cookie-image::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-color);
   }
 
   .cookie-image img {

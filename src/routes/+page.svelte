@@ -1,6 +1,6 @@
 <script>
-  import StockImage from '$lib/components/StockImage.svelte';
-  import { STOCK_IMAGES } from '$lib/assets/constants.js';
+  import StockImage from "$lib/components/StockImage.svelte";
+  import { STOCK_IMAGES } from "$lib/assets/constants.js";
 </script>
 
 <svelte:head>
@@ -12,8 +12,7 @@
   <meta name="keywords" content="cookies, fresh baked, pickup, less sugar, chewy cookies" />
 </svelte:head>
 
-<div class="hero">
-  <div class="plaid-overlay"></div>
+<div class="hero plaid-bg">
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
@@ -22,13 +21,10 @@
         </div>
         <h1>Big, Chewy Cookies with Less Sugar</h1>
         <p class="tagline">Deliciously satisfying treats, baked fresh and available for local pickup</p>
-        <a href="/flavors" class="cta-button">
-          Browse Flavors
-          <i class="fas fa-ribbon"></i>
-        </a>
+        <a href="/flavors" class="cta-button">Browse Flavors</a>
       </div>
       <div class="hero-image">
-        <StockImage src={STOCK_IMAGES.HERO_MAIN} alt="Fresh baked cookies" className="main-hero-img" />
+        <StockImage src={STOCK_IMAGES.BEAR_IMAGE_1} alt="Fresh baked cookies" className="main-hero-img" />
       </div>
     </div>
   </div>
@@ -36,10 +32,7 @@
 
 <section class="features">
   <div class="container">
-    <h2>
-      Why Choose Stuffie's?
-      <i class="fas fa-ribbon bow-accent"></i>
-    </h2>
+    <h2>Why Choose Stuffie's?</h2>
     <div class="features-grid">
       <div class="feature">
         <div class="feature-icon">
@@ -66,8 +59,8 @@
         <div class="feature-icon">
           <i class="fas fa-store"></i>
         </div>
-        <h3>Local Pickup</h3>
-        <p>Convenient local pickup available, so you can enjoy fresh cookies at your convenience.</p>
+        <h3>Locally Made</h3>
+        <p>Support local business, and enjoy fresh cookies made in your community.</p>
       </div>
     </div>
   </div>
@@ -92,7 +85,15 @@
         <p>We're proud to serve our local community with convenient pickup service, bringing fresh-baked happiness straight to you.</p>
       </div>
       <div class="about-image">
-        <StockImage src={STOCK_IMAGES.ABOUT_IMAGE} alt="Delicious fresh cookies" />
+        <video
+          src="/stuffiescookies.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          style="width:100%; height:auto; display:block;"
+          aria-label="Fresh baked cookies video"
+        ></video>
       </div>
     </div>
   </div>
@@ -119,44 +120,9 @@
     overflow: hidden;
   }
 
-  /* Plaid pattern overlay */
-  .plaid-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 50px,
-        rgba(139, 111, 92, 0.03) 50px,
-        rgba(139, 111, 92, 0.03) 52px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 50px,
-        rgba(139, 111, 92, 0.03) 50px,
-        rgba(139, 111, 92, 0.03) 52px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 100px,
-        rgba(212, 165, 165, 0.05) 100px,
-        rgba(212, 165, 165, 0.05) 104px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 100px,
-        rgba(212, 165, 165, 0.05) 100px,
-        rgba(212, 165, 165, 0.05) 104px
-      );
-    opacity: 0.6;
-    z-index: 1;
+  .plaid-bg {
+    background-image: url("/plaid_bg.png");
+    background-repeat: repeat;
   }
 
   .hero-content {
@@ -174,27 +140,25 @@
 
   .teddy-accent {
     font-size: 3.5rem;
-    color: var(--primary-color);
     margin-bottom: 1rem;
-    opacity: 0.8;
+    color: white;
   }
 
   .hero-content h1 {
-    color: var(--brown-text);
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
+    color: white;
   }
 
   .tagline {
     font-size: clamp(1.2rem, 3vw, 1.5rem);
     margin-bottom: 2.5rem;
-    opacity: 0.9;
-    font-weight: 400;
-    color: var(--secondary-color);
+    font-weight: 500;
     line-height: 1.5;
+    color: white;
   }
 
   .cta-button {
@@ -256,11 +220,6 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-  }
-
-  .bow-accent {
-    color: var(--primary-color);
-    font-size: 0.8em;
   }
 
   .features-grid {
@@ -354,12 +313,11 @@
   }
 
   .about-image {
-    border-radius: 2rem;
+    border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(212, 165, 165, 0.3);
+    box-shadow: 0 20px 60px rgba(155, 179, 255, 0.3);
     transform: rotate(-2deg);
     transition: transform 0.4s ease;
-    height: 450px;
   }
 
   .about-image:hover {

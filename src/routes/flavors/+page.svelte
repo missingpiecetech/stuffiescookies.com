@@ -141,15 +141,17 @@
 <style>
   .flavors-page {
     background: var(--light-bg);
+    background-image: url("/plaid_bg.png");
+    background-repeat: repeat;
   }
 
   .hero-small {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--white);
+    background: var(--primary-color);
     padding: 4rem 0;
     text-align: center;
     position: relative;
     overflow: hidden;
+    color: var(--brown-text);
   }
 
   .hero-small::before {
@@ -175,7 +177,6 @@
   }
 
   .hero-small h1 {
-    color: var(--white);
     font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 1rem;
     font-weight: 700;
@@ -189,7 +190,6 @@
     margin-bottom: 0;
     position: relative;
     z-index: 1;
-    color: var(--white);
   }
 
   .flavors-section {
@@ -208,17 +208,17 @@
     text-align: center;
     font-size: clamp(2rem, 4vw, 2.8rem);
     margin-bottom: 1rem;
-    color: var(--brown-text);
     font-weight: 700;
+    color: var(--white);
   }
 
   .category-description {
     text-align: center;
     font-size: 1.2rem;
-    color: var(--gray);
     margin-bottom: 3rem;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 500;
+    color: var(--white);
   }
 
   .flavors-grid {

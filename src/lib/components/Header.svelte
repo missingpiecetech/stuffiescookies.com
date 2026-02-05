@@ -8,7 +8,6 @@
       <div class="logo">
         <i class="fas fa-cookie-bite"></i>
         <span>Stuffie's Cookies</span>
-        <i class="fas fa-ribbon bow-accent"></i>
       </div>
       <ul class="nav-links">
         <li>
@@ -52,12 +51,6 @@
   .logo i {
     font-size: 1.8rem;
     color: var(--secondary-color);
-  }
-
-  .bow-accent {
-    font-size: 1.2rem !important;
-    color: var(--primary-color) !important;
-    margin-left: 0.2rem;
   }
 
   .nav-links {
