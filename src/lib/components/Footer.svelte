@@ -1,114 +1,167 @@
-<footer>
-  <div class="container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Stuffie's Cookies</h3>
-        <p>Big, chewy cookies with less sugar, baked fresh and available for local pickup.</p>
-      </div>
-      <div class="footer-section">
-        <h4>Order & Connect</h4>
-        <p>
-          <a href="https://www.instagram.com/blubeaar2/" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-instagram"></i>
-            @blubeaar2
-          </a>
-        </p>
-        <p>Local pickup available</p>
-      </div>
-      <div class="footer-section">
-        <h4>Hours</h4>
-        <p>Monday - Friday: 9am - 6pm</p>
-        <p>Saturday: 10am - 4pm</p>
-        <p>Sunday: Closed</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; {new Date().getFullYear()} Stuffie's Cookies. All rights reserved.</p>
-    </div>
-  </div>
+<script>
+	import { site, instagram, hours } from '$lib/data/business.js';
+	import TeddyBear from './TeddyBear.svelte';
+	import Icon from './Icon.svelte';
+
+	const year = new Date().getFullYear();
+</script>
+
+<footer class="site-footer">
+	<div class="plaid band" aria-hidden="true"></div>
+	<div class="container grid">
+		<div class="about">
+			<a class="brand" href="/">
+				<TeddyBear size={44} bow />
+				<span>{site.name}</span>
+			</a>
+			<p>Big, chewy cookies, baked to order for local pickup.</p>
+		</div>
+
+		<div>
+			<h2>Order</h2>
+			<address>
+				<a href={instagram.url} rel="noopener" target="_blank">
+					<Icon name="instagram" size={18} />
+					{instagram.handle}
+				</a>
+			</address>
+			<p>Local pickup only</p>
+		</div>
+
+		<div>
+			<h2>Hours</h2>
+			<dl class="hours">
+				{#each hours as h (h.label)}
+					<div>
+						<dt>{h.label}</dt>
+						<dd>
+							{#if h.closed}
+								Closed
+							{:else}
+								<time datetime={h.opens}>{h.display?.opens}</time>–<time datetime={h.closes}
+									>{h.display?.closes}</time
+								>
+							{/if}
+						</dd>
+					</div>
+				{/each}
+			</dl>
+		</div>
+
+		<nav aria-label="Footer">
+			<h2>Explore</h2>
+			<ul role="list">
+				<li><a href="/">Home</a></li>
+				<li><a href="/flavors">Flavors</a></li>
+				<li><a href="/flavors#ordering">Pricing</a></li>
+				<li><a href="/flavors#faq">FAQ</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="container legal">
+		<p>© {year} {site.name}</p>
+	</div>
 </footer>
 
 <style>
-  footer {
-    background: var(--secondary-color);
-    padding: 4rem 0 2rem;
-    margin-top: 0;
-    position: relative;
-    color: var(--white);
-  }
-  .footer-content p,
-  .footer-content h3 {
-    color: var(--white);
-  }
+	.site-footer {
+		margin-top: auto;
+		background: var(--latte);
+		color: var(--cocoa);
+	}
 
-  footer::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-color);
-  }
+	.band {
+		height: 14px;
+	}
 
-  .footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 3rem;
-    margin-bottom: 2rem;
-  }
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+		gap: 2.5rem 2rem;
+		padding-block: 3.5rem 2.5rem;
+	}
 
-  .footer-section h3 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		color: var(--cocoa);
+		text-decoration: none;
+		font-family: var(--font-display);
+		font-variation-settings: 'SOFT' 100;
+		font-size: 1.35rem;
+		font-weight: 650;
+	}
 
-  .footer-section h4 {
-    color: var(--white);
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    opacity: 0.95;
-  }
+	.about p {
+		margin-top: 0.75rem;
+		max-width: 22rem;
+		color: var(--cocoa-soft);
+	}
 
-  .footer-section p {
-    margin-bottom: 0.8rem;
-    line-height: 1.6;
-    opacity: 0.9;
-  }
+	h2 {
+		margin-bottom: 0.75rem;
+		font-family: var(--font-body);
+		font-size: 0.8125rem;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--cocoa-soft);
+	}
 
-  .footer-section a {
-    color: var(--white);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-  }
+	address {
+		font-style: normal;
+	}
 
-  .footer-section a:hover {
-    color: var(--accent-color);
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
-  }
+	address a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-weight: 800;
+		color: var(--cocoa);
+	}
 
-  .footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    opacity: 0.8;
-  }
+	address + p {
+		margin-top: 0.35rem;
+		color: var(--cocoa-soft);
+	}
 
-  @media (max-width: 768px) {
-    footer {
-      padding: 3rem 0 1.5rem;
-    }
+	.hours div {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		max-width: 16rem;
+		padding-block: 0.15rem;
+	}
 
-    .footer-content {
-      grid-template-columns: 1fr;
-      text-align: center;
-      gap: 2rem;
-    }
-  }
+	dt {
+		font-weight: 700;
+	}
+
+	dd {
+		color: var(--cocoa-soft);
+		font-variant-numeric: tabular-nums;
+	}
+
+	nav ul {
+		display: grid;
+		gap: 0.25rem;
+	}
+
+	nav a {
+		color: var(--cocoa);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	nav a:hover {
+		text-decoration: underline;
+	}
+
+	.legal {
+		padding-block: 1.25rem 2rem;
+		border-top: 1px solid rgb(74 49 40 / 0.14);
+		font-size: 0.9375rem;
+		color: var(--cocoa-soft);
+	}
 </style>

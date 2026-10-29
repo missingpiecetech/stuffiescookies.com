@@ -1,374 +1,304 @@
 <script>
-  import CookieCard from "$lib/components/CookieCard.svelte";
+	import Seo from '$lib/components/Seo.svelte';
+	import Bow from '$lib/components/Bow.svelte';
+	import TeddyBear from '$lib/components/TeddyBear.svelte';
+	import Icon from '$lib/components/Icon.svelte';
+	import FlavorCard from '$lib/components/FlavorCard.svelte';
+	import Pricing from '$lib/components/Pricing.svelte';
+	import { site, instagram, ordering, pricing, categories, flavors, flavorsIn, faq, hours } from '$lib/data/business.js';
+	import { faqPage, breadcrumbs } from '$lib/data/jsonld.js';
 
-  const classicFlavors = [
-    {
-      name: "Chocolate Chip",
-      description:
-        "Our signature recipe with rich chocolate chips and a perfect chewy texture. A timeless favorite made with less sugar for a more balanced taste.",
-      image: "/chocolate_chip.jpeg",
-      type: "classic",
-    },
-    {
-      name: "Red Velvet Cake",
-      description:
-        "Rich, velvety red cookies with a hint of cocoa and cream cheese flavor. A sophisticated twist on the classic cake in cookie form.",
-      image: "/red_velvet.jpeg",
-      type: "classic",
-    },
-    {
-      name: "Cookies and Cream",
-      description: "Chocolate cookie base loaded with crushed cookie pieces and white chocolate chips. A delightful crunch in every bite.",
-      image: "/cookies_and_cream.jpeg",
-      type: "classic",
-    },
-    {
-      name: "Peanut Butter",
-      description:
-        "Creamy peanut butter cookies with a soft, melt-in-your-mouth texture. Made with real peanut butter and reduced sugar for natural flavor.",
-      image: "https://via.placeholder.com/400x300?text=Peanut+Butter",
-      type: "classic",
-    },
-    {
-      name: "Birthday Cake",
-      description: "Vanilla-based cookies with colorful sprinkles and a festive birthday cake flavor. Celebration in every bite!",
-      image: "https://via.placeholder.com/400x300?text=Birthday+Cake",
-      type: "classic",
-    },
-  ];
-
-  const rotatingFlavors = [
-    {
-      name: "Ube",
-      description:
-        "Filipino purple yam cookies with a unique, subtly sweet flavor and beautiful purple color. A trendy and delicious Asian-inspired treat.",
-      image: "https://via.placeholder.com/400x300?text=Ube",
-      type: "rotating",
-    },
-    {
-      name: "Matcha",
-      description:
-        "Premium Japanese green tea powder creates these earthy, slightly bitter cookies that balance perfectly with our reduced sugar recipe.",
-      image: "/matcha.jpeg",
-      type: "rotating",
-    },
-  ];
-
-  const allFlavors = [...classicFlavors, ...rotatingFlavors];
+	const path = '/flavors';
+	const [bakersDozen, mixDozen] = pricing;
+	const crumbs = [
+		{ name: 'Home', path: '/' },
+		{ name: 'Flavors', path }
+	];
 </script>
 
-<svelte:head>
-  <title>Cookie Flavors - Stuffie's Cookies</title>
-  <meta
-    name="description"
-    content="Browse our delicious selection of cookie flavors. From classic chocolate chip to unique combinations, all made big, chewy, and with less sugar."
-  />
-  <meta name="keywords" content="cookie flavors, chocolate chip, oatmeal raisin, peanut butter, cookies menu" />
-</svelte:head>
+<Seo
+	title="Flavors, pricing and ordering | {site.name}"
+	description="All {flavors.length} Stuffie’s Cookies flavors, from Chocolate Chip to Ube. ${bakersDozen.price} baker’s dozen or ${mixDozen.price} mix-and-match dozen. Order {ordering.leadTimeHours} hours ahead on Instagram for local pickup."
+	{path}
+	jsonLd={[breadcrumbs(crumbs), faqPage(path)]}
+/>
 
-<div class="flavors-page">
-  <div class="hero-small">
-    <div class="container">
-      <h1>Our Cookie Flavors</h1>
-      <p>Big, chewy cookies with less sugar - discover your new favorite!</p>
-    </div>
-  </div>
+<header class="page-head">
+	<div class="container">
+		<nav aria-label="Breadcrumb">
+			<ol class="crumbs" role="list">
+				{#each crumbs as crumb, i (crumb.path)}
+					<li>
+						{#if i === crumbs.length - 1}
+							<span aria-current="page">{crumb.name}</span>
+						{:else}
+							<a href={crumb.path}>{crumb.name}</a>
+						{/if}
+					</li>
+				{/each}
+			</ol>
+		</nav>
+		<h1>The flavors</h1>
+		<p class="lede">
+			{flavorsIn('classic').length} classics on the menu all year, plus rotating flavors that come and go. Mix
+			and match up to {ordering.maxMixFlavors} in a dozen.
+		</p>
+		<a class="btn btn-primary" href={instagram.url} rel="noopener" target="_blank">
+			<Icon name="instagram" />
+			Order on Instagram<span class="visually-hidden"> (opens in a new tab)</span>
+		</a>
+	</div>
+</header>
 
-  <section class="flavors-section">
-    <div class="container">
-      <div class="flavor-category">
-        <h2>Classic Flavors</h2>
-        <p class="category-description">Always available - our signature recipes perfected over time</p>
-        <div class="flavors-grid">
-          {#each classicFlavors as flavor}
-            <CookieCard name={flavor.name} description={flavor.description} image={flavor.image} />
-          {/each}
-        </div>
-      </div>
+{#each categories as category (category.id)}
+	<section class="section flavors {category.id}" aria-labelledby="{category.id}-title" id={category.id}>
+		<div class="container">
+			<div class="section-head">
+				<p class="eyebrow"><Bow size={24} /> {category.name}</p>
+				<h2 id="{category.id}-title">{category.heading}</h2>
+				<p>{category.blurb}</p>
+			</div>
+			<ul class="flavor-grid" role="list">
+				{#each flavorsIn(category.id) as flavor (flavor.slug)}
+					<li><FlavorCard {flavor} /></li>
+				{/each}
+			</ul>
+		</div>
+	</section>
+{/each}
 
-      <div class="flavor-category">
-        <h2>Rotating Flavors</h2>
-        <p class="category-description">Limited time offerings - available this month only!</p>
-        <div class="flavors-grid">
-          {#each rotatingFlavors as flavor}
-            <CookieCard name={flavor.name} description={flavor.description} image={flavor.image} />
-          {/each}
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="section ordering" id="ordering" aria-labelledby="ordering-title">
+	<div class="container">
+		<div class="order-panel plaid">
+			<div class="order-card">
+				<div class="section-head">
+					<p class="eyebrow"><Bow size={24} /> Ordering</p>
+					<h2 id="ordering-title">Good to know before you order</h2>
+				</div>
+				<ul class="info" role="list">
+					<li>
+						<Icon name="cookie" size={26} />
+						<div>
+							<h3>Minimum order</h3>
+							<p>{ordering.minimumCookies} cookies. Mix and match flavors.</p>
+						</div>
+					</li>
+					<li>
+						<Icon name="calendar" size={26} />
+						<div>
+							<h3>Lead time</h3>
+							<p>Order at least {ordering.leadTimeHours} hours ahead.</p>
+						</div>
+					</li>
+					<li>
+						<Icon name="bag" size={26} />
+						<div>
+							<h3>Pickup</h3>
+							<p>Local pickup only. We’ll set your pickup time when you order.</p>
+						</div>
+					</li>
+					<li>
+						<Icon name="clock" size={26} />
+						<div>
+							<h3>Hours</h3>
+							<p>
+								{#each hours as h, i (h.label)}
+									<span class="nowrap"
+										>{h.label}:
+										{#if h.closed}Closed{:else}<time datetime={h.opens}>{h.display?.opens}</time>–<time
+												datetime={h.closes}>{h.display?.closes}</time
+											>{/if}</span
+									>{#if i < hours.length - 1}<br />{/if}
+								{/each}
+							</p>
+						</div>
+					</li>
+				</ul>
+				<h3 class="pricing-title">Pricing</h3>
+				<Pricing headingLevel={4} />
+				<div class="order-cta">
+					<a class="btn btn-primary" href={instagram.url} rel="noopener" target="_blank">
+						<Icon name="instagram" />
+						Message {instagram.handle}<span class="visually-hidden"> on Instagram (opens in a new tab)</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-  <section class="order-info">
-    <div class="container">
-      <div class="info-box">
-        <h2>Ordering Information</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <i class="fa-solid fa-cookie-bite"></i>
-            </span>
-            <h3>Minimum Order</h3>
-            <p>12 cookies (mix and match flavors)</p>
-          </div>
-          <div class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <i class="fa-solid fa-clock"></i>
-            </span>
-            <h3>Pickup Time</h3>
-            <p>Coordinated upon order. Please order at least 72-hours in advance.</p>
-          </div>
-          <div class="info-item">
-            <span class="info-icon" aria-hidden="true">
-              <i class="fa-solid fa-money-bill-wave"></i>
-            </span>
-            <h3>Pricing</h3>
-            <p>$30/bakers dozen (13), single flavor</p>
-            <p>$39/dozen, mix and match up to 3 flavors</p>
-          </div>
-        </div>
-        <div class="contact-cta">
-          <p>
-            Ready to order? Connect with us on Instagram
-            <strong><a href="https://www.instagram.com/blubeaar2/" target="_blank" rel="noopener noreferrer">@blubeaar2</a></strong>
-            to place your order for local pickup!
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+	<div class="container faq-grid">
+		<div class="section-head">
+			<p class="eyebrow"><Bow size={24} /> FAQ</p>
+			<h2 id="faq-title">Questions, answered</h2>
+			<TeddyBear size={96} bow class="faq-bear" />
+		</div>
+		<div class="faq-list">
+			{#each faq as item (item.q)}
+				<div class="faq-item">
+					<h3>{item.q}</h3>
+					<p>{item.a}</p>
+				</div>
+			{/each}
+		</div>
+	</div>
+</section>
 
 <style>
-  .flavors-page {
-    background: var(--light-bg);
-    background-image: url("/plaid_bg.png");
-    background-repeat: repeat;
-  }
+	/* ---------- Page header ---------- */
+	.page-head {
+		padding-block: clamp(2rem, 5vw, 3.5rem) clamp(2.5rem, 6vw, 4rem);
+		background:
+			radial-gradient(50rem 24rem at 90% 0%, var(--blush), transparent 70%),
+			var(--cream);
+	}
 
-  .hero-small {
-    background: var(--primary-color);
-    padding: 4rem 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    color: var(--brown-text);
-  }
+	.crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-bottom: 1.25rem;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: var(--cocoa-soft);
+	}
 
-  .hero-small::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.4;
-    animation: float 20s infinite linear;
-  }
+	.crumbs li + li::before {
+		content: '/';
+		margin-right: 0.4rem;
+		color: var(--rose-deep);
+	}
 
-  @keyframes float {
-    0% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    100% {
-      transform: translate(-30px, -30px) rotate(360deg);
-    }
-  }
+	.crumbs a {
+		color: var(--cocoa-soft);
+	}
 
-  .hero-small h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 1rem;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
-  }
+	.page-head .lede {
+		max-width: 36rem;
+		margin-block: 1rem 1.75rem;
+	}
 
-  .hero-small p {
-    font-size: 1.3rem;
-    opacity: 0.95;
-    margin-bottom: 0;
-    position: relative;
-    z-index: 1;
-  }
+	/* ---------- Flavor sections ---------- */
+	.flavors {
+		padding-top: clamp(2.5rem, 6vw, 4rem);
+	}
 
-  .flavors-section {
-    padding: 6rem 0;
-  }
+	.rotating {
+		background: var(--blush);
+		padding-top: var(--section);
+	}
 
-  .flavor-category {
-    margin-bottom: 6rem;
-  }
+	.flavor-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+		gap: clamp(1rem, 2.5vw, 1.75rem);
+	}
 
-  .flavor-category:last-child {
-    margin-bottom: 0;
-  }
+	/* ---------- Ordering ---------- */
+	.order-panel {
+		padding: clamp(0.75rem, 3vw, 2rem);
+		border-radius: var(--radius-lg);
+	}
 
-  .flavor-category h2 {
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    margin-bottom: 1rem;
-    font-weight: 700;
-    color: var(--white);
-  }
+	.order-card {
+		padding: clamp(1.5rem, 5vw, 3.5rem);
+		border-radius: calc(var(--radius-lg) - 0.5rem);
+		background: var(--cream);
+		box-shadow: var(--shadow-lg);
+	}
 
-  .category-description {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
-    font-style: italic;
-    font-weight: 500;
-    color: var(--white);
-  }
+	.info {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+		gap: 1.75rem 2rem;
+		margin-bottom: 3rem;
+	}
 
-  .flavors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
+	.info li {
+		display: flex;
+		gap: 0.9rem;
+		align-items: flex-start;
+	}
 
-  .order-info {
-    padding: 6rem 0;
-    background: var(--white);
-  }
+	.info :global(.icon) {
+		margin-top: 0.1rem;
+		color: var(--rose-ink);
+	}
 
-  .info-box {
-    background: var(--white);
-    border-radius: 2rem;
-    padding: 3rem;
-    box-shadow: 0 20px 60px rgba(212, 165, 165, 0.2);
-    border: 2px solid var(--accent-color);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+	.info h3 {
+		font-size: 1.15rem;
+	}
 
-  .info-box h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    color: var(--brown-text);
-    font-weight: 700;
-  }
+	.info p {
+		margin-top: 0.25rem;
+		color: var(--cocoa-soft);
+	}
 
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 3rem;
-  }
+	.pricing-title {
+		margin-bottom: 1.25rem;
+	}
 
-  .info-item {
-    background: var(--white);
-    padding: 2.5rem 2rem;
-    border-radius: 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(212, 165, 165, 0.15);
-    border: 2px solid var(--accent-color);
-    position: relative;
-    overflow: hidden;
-  }
+	.order-cta {
+		margin-top: 2rem;
+	}
 
-  .info-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-color);
-  }
+	.nowrap {
+		white-space: nowrap;
+	}
 
-  .info-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
+	/* ---------- FAQ ---------- */
+	.faq {
+		padding-top: 0;
+	}
 
-  .info-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(212, 165, 165, 0.25);
-  }
+	.faq-grid {
+		display: grid;
+		gap: 1rem 4rem;
+	}
 
-  .info-item h3 {
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-    color: var(--brown-text);
-    font-weight: 600;
-  }
+	@media (min-width: 56rem) {
+		.faq-grid {
+			grid-template-columns: 1fr 2fr;
+			align-items: start;
+		}
 
-  .info-item p {
-    color: var(--gray);
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
+		.faq-grid .section-head {
+			position: sticky;
+			top: calc(var(--header-h) + 2rem);
+		}
+	}
 
-  .info-item p:last-child {
-    margin-bottom: 0;
-  }
+	.faq-grid :global(.faq-bear) {
+		margin-top: 2rem;
+		rotate: -8deg;
+	}
 
-  .contact-cta {
-    text-align: center;
-    padding: 2.5rem 2rem 0;
-    border-top: 2px solid var(--accent-color);
-  }
+	@media (max-width: 55.99rem) {
+		.faq-grid :global(.faq-bear) {
+			display: none;
+		}
+	}
 
-  .contact-cta p {
-    font-size: 1.2rem;
-    margin-bottom: 0;
-    color: var(--gray);
-  }
+	.faq-list {
+		display: grid;
+		gap: 0.75rem;
+	}
 
-  .contact-cta strong {
-    color: var(--secondary-color);
-  }
+	.faq-item {
+		padding: 1.25rem 1.5rem 1.35rem;
+		border-radius: var(--radius);
+		background: var(--paper);
+		box-shadow: var(--shadow-sm);
+		border: 1.5px solid rgb(138 95 71 / 0.1);
+	}
 
-  .contact-cta a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
-  }
+	.faq-item h3 {
+		font-size: 1.2rem;
+	}
 
-  .contact-cta a:hover {
-    color: var(--primary-color);
-    background: var(--accent-color);
-  }
-
-  @media (max-width: 768px) {
-    .hero-small {
-      padding: 3rem 0;
-    }
-
-    .flavors-section {
-      padding: 4rem 0;
-    }
-
-    .flavor-category {
-      margin-bottom: 4rem;
-    }
-
-    .flavors-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .info-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .info-box {
-      padding: 2rem;
-      border-radius: 1.5rem;
-    }
-
-    .order-info {
-      padding: 4rem 0;
-    }
-  }
+	.faq-item p {
+		margin-top: 0.4rem;
+		color: var(--cocoa-soft);
+	}
 </style>

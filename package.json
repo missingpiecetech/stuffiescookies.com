@@ -10,13 +10,14 @@
 		"prepare": "svelte-kit sync || echo ''"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6.1.0",
+		"@sveltejs/adapter-cloudflare": "^7.2.9",
 		"@sveltejs/kit": "^2.43.2",
 		"@sveltejs/vite-plugin-svelte": "^6.2.0",
 		"svelte": "^5.39.5",
 		"vite": "^7.1.7"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-free": "^7.1.0"
+		"@fontsource-variable/fraunces": "^5.3.0",
+		"@fontsource-variable/nunito": "^5.3.0"
 	}
 }

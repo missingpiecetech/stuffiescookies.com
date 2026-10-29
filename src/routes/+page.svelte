@@ -1,382 +1,488 @@
 <script>
-  import StockImage from "$lib/components/StockImage.svelte";
-  import { STOCK_IMAGES } from "$lib/assets/constants.js";
+	import Seo from '$lib/components/Seo.svelte';
+	import Bow from '$lib/components/Bow.svelte';
+	import TeddyBear from '$lib/components/TeddyBear.svelte';
+	import Icon from '$lib/components/Icon.svelte';
+	import FlavorCard from '$lib/components/FlavorCard.svelte';
+	import Pricing from '$lib/components/Pricing.svelte';
+	import { site, instagram, ordering, flavors, flavorsIn, hours } from '$lib/data/business.js';
+
+	const featured = flavors.filter((f) => f.photo);
+	const classicCount = flavorsIn('classic').length;
+	const rotatingCount = flavorsIn('rotating').length;
+	const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+	const cap = (/** @type {string} */ s) => s[0].toUpperCase() + s.slice(1);
+
+	/** @type {HTMLVideoElement | undefined} */
+	let video = $state();
+	let showControls = $state(false);
+
+	$effect(() => {
+		if (!video) return;
+		const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const apply = () => {
+			if (!video) return;
+			showControls = query.matches;
+			if (query.matches) video.pause();
+			else video.play().catch(() => {});
+		};
+		apply();
+		query.addEventListener('change', apply);
+		return () => query.removeEventListener('change', apply);
+	});
 </script>
 
-<svelte:head>
-  <title>Stuffie's Cookies - Big, Chewy, Less Sugar</title>
-  <meta
-    name="description"
-    content="Stuffie's Cookies offers big, chewy cookies with less sugar, baked fresh and available for local pickup. Order your favorite flavors today!"
-  />
-  <meta name="keywords" content="cookies, fresh baked, pickup, less sugar, chewy cookies" />
-</svelte:head>
+<Seo
+	title="{site.name} | Big, chewy cookies, baked to order"
+	description="Big, chewy cookies in classic and rotating flavors, baked to order. Order a dozen on Instagram at {instagram.handle} for local pickup."
+	path="/"
+/>
 
-<div class="hero plaid-bg">
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-text">
-        <div class="teddy-accent">
-          <i class="fas fa-heart"></i>
-        </div>
-        <h1>Big, Chewy Cookies with Less Sugar</h1>
-        <p class="tagline">Deliciously satisfying treats, baked fresh and available for local pickup</p>
-        <a href="/flavors" class="cta-button">Browse Flavors</a>
-      </div>
-      <div class="hero-image">
-        <StockImage src={STOCK_IMAGES.BEAR_IMAGE_1} alt="Fresh baked cookies" className="main-hero-img" />
-      </div>
-    </div>
-  </div>
-</div>
+<section class="hero" aria-labelledby="hero-title">
+	<div class="container hero-grid">
+		<div class="hero-copy">
+			<p class="eyebrow"><Bow size={28} /> Home-baked · Local pickup</p>
+			<h1 id="hero-title">Big, chewy cookies, <span class="accent">baked to order.</span></h1>
+			<p class="lede">
+				Classic and rotating flavors, baked fresh for every order and ready for pickup.
+			</p>
+			<div class="actions">
+				<a class="btn btn-primary" href={instagram.url} rel="noopener" target="_blank">
+					<Icon name="instagram" />
+					Order on Instagram<span class="visually-hidden"> (opens in a new tab)</span>
+				</a>
+				<a class="btn btn-secondary" href="/flavors">
+					See the flavors
+					<Icon name="arrow" size={18} />
+				</a>
+			</div>
+			<ul class="facts" role="list">
+				<li><Icon name="cookie" size={18} />{ordering.minimumCookies}-cookie minimum</li>
+				<li><Icon name="calendar" size={18} />Order {ordering.leadTimeHours} hours ahead</li>
+				<li><Icon name="bag" size={18} />Local pickup</li>
+			</ul>
+		</div>
 
-<section class="features">
-  <div class="container">
-    <h2>Why Choose Stuffie's?</h2>
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-cookie-bite"></i>
-        </div>
-        <h3>Big & Chewy</h3>
-        <p>Our cookies are generously sized and perfectly chewy, giving you the ultimate cookie experience in every bite.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-heart"></i>
-        </div>
-        <h3>Less Sugar</h3>
-        <p>We use less sugar in our recipes without sacrificing taste, creating a more balanced and enjoyable flavor.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-fire"></i>
-        </div>
-        <h3>Freshly Baked</h3>
-        <p>Every batch is baked fresh to order, ensuring you receive warm, soft cookies at their absolute best.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <i class="fas fa-store"></i>
-        </div>
-        <h3>Locally Made</h3>
-        <p>Support local business, and enjoy fresh cookies made in your community.</p>
-      </div>
-    </div>
-  </div>
+		<div class="hero-media">
+			<div class="frame plaid">
+				<img
+					src="/images/cookies-tray-1440.webp"
+					srcset="/images/cookies-tray-800.webp 800w, /images/cookies-tray-1440.webp 1440w"
+					sizes="(min-width: 60rem) 34rem, 92vw"
+					width="1440"
+					height="992"
+					alt="A baking tray of big, chewy cookies, some topped with toasted marshmallow"
+					fetchpriority="high"
+					decoding="async"
+				/>
+			</div>
+			<Bow size={88} class="hero-bow" />
+			<TeddyBear size={84} class="hero-bear" />
+		</div>
+	</div>
 </section>
 
-<section class="about">
-  <div class="container">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>
-          About Stuffie's Cookies
-          <i class="fas fa-heart teddy-inline"></i>
-        </h2>
-        <p>
-          At Stuffie's Cookies, we believe that cookies should be a guilt-free pleasure. That's why we've perfected our recipe to create
-          big, satisfying cookies that use less sugar without compromising on taste.
-        </p>
-        <p>
-          Each cookie is carefully crafted with high-quality ingredients and baked fresh to order. Whether you're treating yourself or
-          sharing with friends and family, our cookies are sure to delight.
-        </p>
-        <p>We're proud to serve our local community with convenient pickup service, bringing fresh-baked happiness straight to you.</p>
-      </div>
-      <div class="about-image">
-        <video
-          src="/stuffiescookies.mp4"
-          autoplay
-          loop
-          muted
-          playsinline
-          style="width:100%; height:auto; display:block;"
-          aria-label="Fresh baked cookies video"
-        ></video>
-      </div>
-    </div>
-  </div>
+<section class="section menu" aria-labelledby="menu-title">
+	<div class="container">
+		<div class="section-head">
+			<p class="eyebrow"><Bow size={24} /> The menu</p>
+			<h2 id="menu-title">
+				{cap(words[classicCount])} classics, {words[rotatingCount]} in rotation.
+			</h2>
+			<p>Every one is big, chewy and baked fresh to order.</p>
+		</div>
+		<ul class="flavor-grid" role="list">
+			{#each featured as flavor (flavor.slug)}
+				<li><FlavorCard {flavor} sizes="(min-width: 72rem) 17rem, (min-width: 40rem) 45vw, 92vw" /></li>
+			{/each}
+		</ul>
+		<p class="more">
+			<a class="btn btn-secondary" href="/flavors">
+				See all {flavors.length} flavors
+				<Icon name="arrow" size={18} />
+			</a>
+		</p>
+	</div>
 </section>
 
-<section class="cta-section">
-  <div class="container">
-    <h2>Ready to Order?</h2>
-    <p>Check out our delicious flavors and connect with us on Instagram to place your order!</p>
-    <a href="/flavors" class="cta-button">View All Flavors</a>
-  </div>
+<section class="section how" aria-labelledby="how-title">
+	<div class="container how-grid">
+		<div>
+			<div class="section-head">
+				<p class="eyebrow"><Bow size={24} /> How to order</p>
+				<h2 id="how-title">Three steps to a box of cookies</h2>
+			</div>
+			<ol class="steps" role="list">
+				<li>
+					<span class="step-num" aria-hidden="true">1</span>
+					<div>
+						<h3>Pick your flavors</h3>
+						<p>Go all in on one, or mix and match up to {ordering.maxMixFlavors} in a dozen.</p>
+					</div>
+				</li>
+				<li>
+					<span class="step-num" aria-hidden="true">2</span>
+					<div>
+						<h3>Message us on Instagram</h3>
+						<p>
+							DM <a href={instagram.url} rel="noopener" target="_blank">{instagram.handle}</a> at least
+							{ordering.leadTimeHours} hours before pickup.
+						</p>
+					</div>
+				</li>
+				<li>
+					<span class="step-num" aria-hidden="true">3</span>
+					<div>
+						<h3>Pick up fresh</h3>
+						<p>We’ll set a pickup time together. Local pickup only.</p>
+					</div>
+				</li>
+			</ol>
+		</div>
+		<div class="pricing">
+			<h3 class="pricing-title">Pricing</h3>
+			<Pricing headingLevel={4} />
+			<p class="minimum">Minimum order {ordering.minimumCookies} cookies.</p>
+		</div>
+	</div>
+</section>
+
+<section class="section story" aria-labelledby="story-title">
+	<div class="container story-grid">
+		<div class="video-frame">
+			<video
+				bind:this={video}
+				src="/stuffiescookies.mp4"
+				poster="/images/video-poster.webp"
+				width="854"
+				height="480"
+				preload="metadata"
+				autoplay
+				muted
+				loop
+				playsinline
+				controls={showControls}
+				aria-label="A box of assorted Stuffie’s cookies"
+			></video>
+			<Bow size={64} class="video-bow" />
+		</div>
+		<div>
+			<p class="eyebrow"><Bow size={24} /> About</p>
+			<h2 id="story-title">Baked fresh, every order</h2>
+			<p class="lede">
+				Stuffie’s Cookies is a home bakery with one specialty: big, chewy cookies worth the wait. Every order
+				is baked fresh, boxed up and ready for you to pick up.
+			</p>
+		</div>
+	</div>
+</section>
+
+<section class="section cta" aria-labelledby="cta-title">
+	<div class="container">
+		<div class="cta-panel plaid">
+			<div class="cta-card">
+				<TeddyBear size={72} bow />
+				<h2 id="cta-title">Ready for a dozen?</h2>
+				<p>Send us your flavors and pickup day on Instagram.</p>
+				<a class="btn btn-primary" href={instagram.url} rel="noopener" target="_blank">
+					<Icon name="instagram" />
+					Order on Instagram<span class="visually-hidden"> (opens in a new tab)</span>
+				</a>
+				<ul class="hours" role="list">
+					{#each hours as h (h.label)}
+						<li>
+							{h.label}
+							{#if h.closed}closed{:else}<time datetime={h.opens}>{h.display?.opens}</time>–<time
+									datetime={h.closes}>{h.display?.closes}</time
+								>{/if}
+						</li>
+					{/each}
+				</ul>
+			</div>
+		</div>
+	</div>
 </section>
 
 <style>
-  .hero {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--light-gray) 100%);
-    color: var(--brown-text);
-    padding: 5rem 0;
-    text-align: left;
-    position: relative;
-    min-height: 75vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
+	/* ---------- Hero ---------- */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(3.5rem, 8vw, 6rem);
+		background:
+			radial-gradient(60rem 30rem at 85% 10%, var(--blush), transparent 70%),
+			var(--cream);
+	}
 
-  .plaid-bg {
-    background-image: url("/plaid_bg.png");
-    background-repeat: repeat;
-  }
+	.hero-grid {
+		display: grid;
+		gap: clamp(2.5rem, 6vw, 4rem);
+		align-items: center;
+	}
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
+	@media (min-width: 60rem) {
+		.hero-grid {
+			grid-template-columns: 1.05fr 1fr;
+		}
+	}
 
-  .hero-text {
-    position: relative;
-  }
+	h1 {
+		max-width: 13ch;
+	}
 
-  .teddy-accent {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: white;
-  }
+	.accent {
+		color: var(--rose-ink);
+	}
 
-  .hero-content h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: white;
-  }
+	.hero .lede {
+		max-width: 30rem;
+		margin-top: 1.25rem;
+	}
 
-  .tagline {
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
-    margin-bottom: 2.5rem;
-    font-weight: 500;
-    line-height: 1.5;
-    color: white;
-  }
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
 
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    background: var(--secondary-color);
-    color: var(--white);
-    padding: 1.2rem 2.5rem;
-    border-radius: 3rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 8px 25px rgba(139, 111, 92, 0.25);
-  }
+	.facts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.25rem;
+		margin-top: 1.75rem;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: var(--cocoa-soft);
+	}
 
-  .cta-button i {
-    font-size: 1rem;
-  }
+	.facts li {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
 
-  .cta-button:hover {
-    box-shadow: 0 12px 35px rgba(139, 111, 92, 0.35);
-    background: var(--brown-text);
-    transform: translateY(-3px);
-  }
+	.facts :global(.icon) {
+		color: var(--rose-ink);
+	}
 
-  .hero-image {
-    border-radius: 2rem;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(212, 165, 165, 0.4);
-    transform: rotate(2deg);
-    transition: transform 0.4s ease;
-    height: 450px;
-  }
+	.hero-media {
+		position: relative;
+		max-width: 36rem;
+		margin-inline: auto;
+		width: 100%;
+	}
 
-  .hero-image:hover {
-    transform: rotate(0deg) scale(1.02);
-  }
+	.frame {
+		padding: clamp(0.75rem, 2vw, 1.25rem);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-lg);
+		transform: rotate(1.5deg);
+	}
 
-  :global(.main-hero-img) {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+	.frame img {
+		width: 100%;
+		border-radius: calc(var(--radius-lg) - 0.75rem);
+	}
 
-  .features {
-    padding: 6rem 0;
-    background: var(--white);
-  }
+	.hero-media :global(.hero-bow) {
+		position: absolute;
+		top: -1.6rem;
+		left: 50%;
+		translate: -50% 0;
+		rotate: -4deg;
+		filter: drop-shadow(0 4px 6px rgb(74 49 40 / 0.18));
+	}
 
-  .features h2 {
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 4rem;
-    font-weight: 700;
-    color: var(--brown-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
+	.hero-media :global(.hero-bear) {
+		position: absolute;
+		right: -0.5rem;
+		bottom: -2rem;
+		filter: drop-shadow(0 6px 10px rgb(74 49 40 / 0.2));
+		rotate: -10deg;
+	}
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+	@media (max-width: 40rem) {
+		.hero-media :global(.hero-bear svg) {
+			width: 64px;
+			height: 64px;
+		}
 
-  .feature {
-    background: var(--white);
-    padding: 3rem 2rem;
-    border-radius: 1.5rem;
-    transition: all 0.4s ease;
-    box-shadow: 0 10px 30px rgba(212, 165, 165, 0.15);
-    border: 2px solid var(--accent-color);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
+		.hero-media :global(.hero-bow) {
+			width: 64px;
+			height: 42px;
+			top: -1.2rem;
+		}
+	}
 
-  .feature::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-color);
-  }
+	/* ---------- Menu ---------- */
+	.flavor-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+		gap: clamp(1rem, 2.5vw, 1.75rem);
+	}
 
-  .feature:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(212, 165, 165, 0.25);
-  }
+	.more {
+		margin-top: 2.5rem;
+		text-align: center;
+	}
 
-  .feature-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
+	/* ---------- How to order ---------- */
+	.how {
+		background: var(--blush);
+	}
 
-  .feature h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    color: var(--brown-text);
-    font-weight: 600;
-  }
+	.how-grid {
+		display: grid;
+		gap: 3rem;
+		align-items: start;
+	}
 
-  .feature p {
-    color: var(--gray);
-    line-height: 1.7;
-    font-size: 1rem;
-  }
+	@media (min-width: 60rem) {
+		.how-grid {
+			grid-template-columns: 1.1fr 1fr;
+			gap: 4rem;
+		}
 
-  .about {
-    padding: 6rem 0;
-    background: var(--light-bg);
-  }
+		.pricing {
+			margin-top: 7.5rem;
+		}
+	}
 
-  .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+	.steps {
+		display: grid;
+		gap: 1.5rem;
+	}
 
-  .about-text h2 {
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    margin-bottom: 2rem;
-    color: var(--brown-text);
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
+	.steps li {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
 
-  .teddy-inline {
-    font-size: 0.8em;
-    color: var(--primary-color);
-  }
+	.step-num {
+		display: grid;
+		place-items: center;
+		flex: none;
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: 50%;
+		background: var(--paper);
+		box-shadow: var(--shadow-sm);
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--rose-ink);
+	}
 
-  .about-text p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-    font-size: 1.1rem;
-    color: var(--gray);
-  }
+	.steps p {
+		margin-top: 0.25rem;
+		color: var(--cocoa-soft);
+	}
 
-  .about-image {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(155, 179, 255, 0.3);
-    transform: rotate(-2deg);
-    transition: transform 0.4s ease;
-  }
+	.pricing-title {
+		margin-bottom: 1.25rem;
+	}
 
-  .about-image:hover {
-    transform: rotate(0deg) scale(1.02);
-  }
+	.minimum {
+		margin-top: 1rem;
+		font-weight: 700;
+		color: var(--cocoa-soft);
+	}
 
-  .cta-section {
-    padding: 6rem 0;
-    text-align: center;
-    background: var(--white);
-  }
+	/* ---------- Story ---------- */
+	.story-grid {
+		display: grid;
+		gap: clamp(2.5rem, 6vw, 4.5rem);
+		align-items: center;
+	}
 
-  .cta-section h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 1rem;
-    font-weight: 700;
-    color: var(--brown-text);
-  }
+	@media (min-width: 52rem) {
+		.story-grid {
+			grid-template-columns: 1.1fr 1fr;
+		}
+	}
 
-  .cta-section p {
-    font-size: 1.3rem;
-    margin-bottom: 2.5rem;
-    opacity: 0.9;
-    color: var(--gray);
-  }
+	.story .lede {
+		margin-top: 1rem;
+		max-width: 32rem;
+	}
 
-  @media (max-width: 768px) {
-    .hero {
-      padding: 4rem 0;
-      min-height: auto;
-    }
+	.video-frame {
+		position: relative;
+		border: 0.6rem solid var(--paper);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-lg);
+		transform: rotate(-1.25deg);
+		background: var(--paper);
+	}
 
-    .hero-content {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
+	video {
+		width: 100%;
+		aspect-ratio: 854 / 480;
+		object-fit: cover;
+		border-radius: calc(var(--radius-lg) - 0.6rem);
+		background: var(--latte);
+	}
 
-    .hero-image {
-      transform: rotate(0deg);
-      height: 300px;
-    }
+	.video-frame :global(.video-bow) {
+		position: absolute;
+		top: -1.5rem;
+		left: -1.25rem;
+		rotate: -22deg;
+		filter: drop-shadow(0 4px 6px rgb(74 49 40 / 0.18));
+	}
 
-    .about-content {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
+	/* ---------- CTA ---------- */
+	.cta {
+		padding-top: 0;
+	}
 
-    .about-image {
-      transform: rotate(0deg);
-      height: 300px;
-    }
+	.cta-panel {
+		padding: clamp(1rem, 4vw, 2.5rem);
+		border-radius: var(--radius-lg);
+	}
 
-    .features-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
+	.cta-card {
+		display: grid;
+		justify-items: center;
+		gap: 0.9rem;
+		max-width: 36rem;
+		margin-inline: auto;
+		padding: clamp(2rem, 6vw, 3.25rem) clamp(1.25rem, 4vw, 3rem);
+		border-radius: calc(var(--radius-lg) - 0.5rem);
+		background: var(--cream);
+		box-shadow: var(--shadow-lg);
+		text-align: center;
+	}
 
-    .feature {
-      padding: 2rem 1.5rem;
-    }
-  }
+	.cta-card p {
+		color: var(--cocoa-soft);
+		font-size: 1.125rem;
+	}
+
+	.cta-card .btn {
+		margin-top: 0.5rem;
+	}
+
+	.hours {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.25rem 0;
+		margin-top: 0.5rem;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: var(--cocoa-soft);
+	}
+
+	.hours li {
+		white-space: nowrap;
+	}
+
+	.hours li + li::before {
+		content: '·';
+		margin-inline: 0.5rem;
+		color: var(--rose-deep);
+	}
 </style>
